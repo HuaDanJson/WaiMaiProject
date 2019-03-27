@@ -21,6 +21,7 @@ import cool.food.android.base.BaseActivity;
 import cool.food.android.base.TabEntity;
 import cool.food.android.fragment.CollectionFragment;
 import cool.food.android.fragment.MeFragment;
+import cool.food.android.fragment.ShoppingCartFragment;
 import cool.food.android.fragment.WeiBoFragment;
 import cool.food.android.utils.ToastHelper;
 
@@ -31,13 +32,14 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.ll_main_activity) LinearLayout activityMain;
 
     private WeiBoFragment mWeiBoFragment;
+    private ShoppingCartFragment mShoppingCartFragment;
     private CollectionFragment mCollectionFragment;
     private MeFragment mMeFragment;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
-    private String[] mTitles = {"微博", "收藏", "我的"};
-    private int[] mIconUnselectIds = {R.drawable.icon_message_unpress, R.drawable.icon_discover_unpress, R.drawable.icon_me_unpress};
-    private int[] mIconSelectIds = {R.drawable.icon_message_press, R.drawable.icon_discover_press, R.drawable.icon_me_press};
+    private String[] mTitles = {"点餐", "购物车", "收藏", "我的"};
+    private int[] mIconUnselectIds = {R.drawable.icon_message_unpress, R.drawable.icon_shopping_un_press, R.drawable.icon_discover_unpress, R.drawable.icon_me_unpress};
+    private int[] mIconSelectIds = {R.drawable.icon_message_press, R.drawable.icon_shopping_press, R.drawable.icon_discover_press, R.drawable.icon_me_press};
     private long firstBack = -1;
 
     @Override
@@ -102,6 +104,11 @@ public class MainActivity extends BaseActivity {
             transaction.add(R.id.ll_main_activity, mWeiBoFragment);
         }
 
+        if (mShoppingCartFragment == null) {
+            mShoppingCartFragment = new ShoppingCartFragment();
+            transaction.add(R.id.ll_main_activity, mShoppingCartFragment);
+        }
+
         if (mCollectionFragment == null) {
             mCollectionFragment = new CollectionFragment();
             transaction.add(R.id.ll_main_activity, mCollectionFragment);
@@ -123,18 +130,28 @@ public class MainActivity extends BaseActivity {
                 transaction.show(mWeiBoFragment);
                 transaction.hide(mCollectionFragment);
                 transaction.hide(mMeFragment);
+                transaction.hide(mShoppingCartFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             case 1:
-                transaction.show(mCollectionFragment);
+                transaction.show(mShoppingCartFragment);
+                transaction.hide(mCollectionFragment);
                 transaction.hide(mWeiBoFragment);
                 transaction.hide(mMeFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             case 2:
+                transaction.show(mCollectionFragment);
+                transaction.hide(mWeiBoFragment);
+                transaction.hide(mMeFragment);
+                transaction.hide(mShoppingCartFragment);
+                transaction.commitAllowingStateLoss();
+                break;
+            case 3:
                 transaction.show(mMeFragment);
                 transaction.hide(mCollectionFragment);
                 transaction.hide(mWeiBoFragment);
+                transaction.hide(mShoppingCartFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             default:
