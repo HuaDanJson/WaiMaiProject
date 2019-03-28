@@ -4,12 +4,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cool.food.android.R;
 import cool.food.android.base.BaseRVAdapter;
+import cool.food.android.base.CCApplication;
 import cool.food.android.base.IViewHolder;
 import cool.food.android.bean.RestaurantBean;
 
@@ -28,12 +32,12 @@ public class RestaurantAdapter extends BaseRVAdapter<RestaurantBean, RestaurantA
 
     public class ReaderAdapterHolder extends RecyclerView.ViewHolder implements IViewHolder<RestaurantBean> {
 
-        @BindView(R.id.tv_title_item_book_reader)
-        TextView mTitle;
-        @BindView(R.id.tv_time_item_book_reader)
-        TextView mTime;
-        @BindView(R.id.tv_introduce_item_book_reader)
-        TextView mIntroduce;
+        @BindView(R.id.iv_restaurant_avatar)
+        ImageView mRestaurantAvatar;
+        @BindView(R.id.tv_restaurant_name)
+        TextView mRestaurantName;
+        @BindView(R.id.tv_restaurant_address)
+        TextView mRestaurantAddress;
 
         public ReaderAdapterHolder(View itemView) {
             super(itemView);
@@ -42,9 +46,17 @@ public class RestaurantAdapter extends BaseRVAdapter<RestaurantBean, RestaurantA
 
         @Override
         public void bindView(RestaurantBean restaurantBean, int position) {
-            mTitle.setText(restaurantBean.getName());
-//            mIntroduce.setText(weiBoBean.getIntroduce());
-//            mTime.setText(TimeUtils.stampToDate(weiBoBean.getCreatTime()));
+            mRestaurantName.setText(restaurantBean.getName());
+            mRestaurantAddress.setText(restaurantBean.getAddress());
+            try {
+                Glide.with(CCApplication.getInstance())
+                        .load(restaurantBean.getAvatar())
+                        .fitCenter()
+                        .dontAnimate()
+                        .into(mRestaurantAvatar);
+            } catch (Exception e) {
+
+            }
         }
     }
 }

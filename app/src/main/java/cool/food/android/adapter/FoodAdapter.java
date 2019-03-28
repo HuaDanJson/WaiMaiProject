@@ -4,9 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import cool.food.android.R;
 import cool.food.android.base.BaseRVAdapter;
@@ -27,13 +25,13 @@ public class FoodAdapter extends BaseRVAdapter<FoodBean, FoodAdapter.ReaderAdapt
     }
 
     public class ReaderAdapterHolder extends RecyclerView.ViewHolder implements IViewHolder<FoodBean> {
-
-        @BindView(R.id.tv_title_item_book_reader)
-        TextView mTitle;
-        @BindView(R.id.tv_time_item_book_reader)
-        TextView mTime;
-        @BindView(R.id.tv_introduce_item_book_reader)
-        TextView mIntroduce;
+//
+//        @BindView(R.id.tv_title_item_book_reader)
+//        TextView mTitle;
+//        @BindView(R.id.tv_time_item_book_reader)
+//        TextView mTime;
+//        @BindView(R.id.tv_introduce_item_book_reader)
+//        TextView mIntroduce;
 
         public ReaderAdapterHolder(View itemView) {
             super(itemView);
