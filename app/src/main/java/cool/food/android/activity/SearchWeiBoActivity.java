@@ -69,7 +69,7 @@ public class SearchWeiBoActivity extends BaseActivity {
                 @Override
                 public void done(List<WeiBoBean> list, BmobException e) {
                     if (e == null) {
-                        LogUtils.d("WeiBoFragment BmobQuery success:" + list);
+                        LogUtils.d("OrderFoodFragment BmobQuery success:" + list);
                         mWeiBoBeanList = list;
                         if (list == null || list.isEmpty()) {
                             ToastHelper.showShortMessage("未搜索到匹配信息");
@@ -84,7 +84,7 @@ public class SearchWeiBoActivity extends BaseActivity {
                             mWeiBoAdapter.setData(mWeiBoBeanList);
                         }
                     } else {
-                        LogUtils.d("WeiBoFragment BmobQuery failed : " + e);
+                        LogUtils.d("OrderFoodFragment BmobQuery failed : " + e);
                     }
                 }
             });

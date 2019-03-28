@@ -92,12 +92,11 @@ public class CommentDialog extends BaseFragmentDialog {
             ToastHelper.showShortMessage("评论不能为空");
         } else {
             CommentBean commentBean = new CommentBean();
-            commentBean.setCommentTime(System.currentTimeMillis());
             commentBean.setValue(commentValue);
-            commentBean.setWeiBoObjectId(mWeiBoBean.getObjectId());
+            commentBean.setRestaurantId(mWeiBoBean.getObjectId());
             CurrentUser currentUser = CurrentUserHelper.getInstance().getCurrentUser();
             if (currentUser != null) {
-                commentBean.setSendUserName(currentUser.getUsername());
+                commentBean.setSenderUserName(currentUser.getUsername());
             }
             mCommentBeanList.add(commentBean);
             initRecyclerView(mCommentBeanList);
@@ -125,7 +124,7 @@ public class CommentDialog extends BaseFragmentDialog {
                             initRecyclerView(commentBeanList);
                             mCommentBeanList = commentBeanList;
                         } else {
-                            LogUtils.d("WeiBoFragment BmobQuery failed : " + e);
+                            LogUtils.d("OrderFoodFragment BmobQuery failed : " + e);
                         }
                     }
                 });

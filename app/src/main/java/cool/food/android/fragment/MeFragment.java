@@ -24,7 +24,7 @@ import cool.food.android.bean.CurrentUser;
 import cool.food.android.dialog.LogoutDialog;
 import cool.food.android.utils.CurrentUserHelper;
 
-
+//我的
 public class MeFragment extends Fragment implements View.OnTouchListener {
 
     @BindView(R.id.tv_logout) TextView mLogout;

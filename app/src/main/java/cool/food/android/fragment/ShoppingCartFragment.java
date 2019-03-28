@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cool.food.android.R;
 
-
+//购物车
 public class ShoppingCartFragment extends Fragment implements View.OnTouchListener {
 
     Unbinder unbinder;

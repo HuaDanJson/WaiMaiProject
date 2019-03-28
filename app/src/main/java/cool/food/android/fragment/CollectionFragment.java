@@ -27,7 +27,7 @@ import cool.food.android.utils.ActivityUtil;
 import cool.food.android.utils.CurrentUserHelper;
 import cool.food.android.utils.WeiBoDaoUtils;
 
-
+//收藏
 public class CollectionFragment extends Fragment implements View.OnTouchListener {
 
     @BindView(R.id.rv_note_activity) RecyclerView mRecyclerView;

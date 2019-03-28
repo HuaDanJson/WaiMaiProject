@@ -21,17 +21,17 @@ import cool.food.android.base.BaseActivity;
 import cool.food.android.base.TabEntity;
 import cool.food.android.fragment.CollectionFragment;
 import cool.food.android.fragment.MeFragment;
+import cool.food.android.fragment.OrderFoodFragment;
 import cool.food.android.fragment.ShoppingCartFragment;
-import cool.food.android.fragment.WeiBoFragment;
 import cool.food.android.utils.ToastHelper;
 
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.tab_layout_main_activity) CommonTabLayout mCommonTabLayout;
-    @BindView(R.id.ll_main_activity) LinearLayout activityMain;
+    @BindView(R.id.tab_layout) CommonTabLayout mCommonTabLayout;
+    @BindView(R.id.ll_show_fragment) LinearLayout activityMain;
 
-    private WeiBoFragment mWeiBoFragment;
+    private OrderFoodFragment mOrderFoodFragment;
     private ShoppingCartFragment mShoppingCartFragment;
     private CollectionFragment mCollectionFragment;
     private MeFragment mMeFragment;
@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         //第一：默认初始化
-        Bmob.initialize(this, "361b8d2729d5873bcc087cb265399155");
+        Bmob.initialize(this, "e8e83fe1a4be56bac297cd001fb36757");
         initTab();
         initFragment();
         getPermission();
@@ -99,24 +99,24 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         int currentTabPosition = 0;
 
-        if (mWeiBoFragment == null) {
-            mWeiBoFragment = new WeiBoFragment();
-            transaction.add(R.id.ll_main_activity, mWeiBoFragment);
+        if (mOrderFoodFragment == null) {
+            mOrderFoodFragment = new OrderFoodFragment();
+            transaction.add(R.id.ll_show_fragment, mOrderFoodFragment);
         }
 
         if (mShoppingCartFragment == null) {
             mShoppingCartFragment = new ShoppingCartFragment();
-            transaction.add(R.id.ll_main_activity, mShoppingCartFragment);
+            transaction.add(R.id.ll_show_fragment, mShoppingCartFragment);
         }
 
         if (mCollectionFragment == null) {
             mCollectionFragment = new CollectionFragment();
-            transaction.add(R.id.ll_main_activity, mCollectionFragment);
+            transaction.add(R.id.ll_show_fragment, mCollectionFragment);
         }
 
         if (mMeFragment == null) {
             mMeFragment = new MeFragment();
-            transaction.add(R.id.ll_main_activity, mMeFragment);
+            transaction.add(R.id.ll_show_fragment, mMeFragment);
         }
         transaction.commit();
         SwitchTo(currentTabPosition);
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (position) {
             case 0:
-                transaction.show(mWeiBoFragment);
+                transaction.show(mOrderFoodFragment);
                 transaction.hide(mCollectionFragment);
                 transaction.hide(mMeFragment);
                 transaction.hide(mShoppingCartFragment);
@@ -136,13 +136,13 @@ public class MainActivity extends BaseActivity {
             case 1:
                 transaction.show(mShoppingCartFragment);
                 transaction.hide(mCollectionFragment);
-                transaction.hide(mWeiBoFragment);
+                transaction.hide(mOrderFoodFragment);
                 transaction.hide(mMeFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             case 2:
                 transaction.show(mCollectionFragment);
-                transaction.hide(mWeiBoFragment);
+                transaction.hide(mOrderFoodFragment);
                 transaction.hide(mMeFragment);
                 transaction.hide(mShoppingCartFragment);
                 transaction.commitAllowingStateLoss();
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity {
             case 3:
                 transaction.show(mMeFragment);
                 transaction.hide(mCollectionFragment);
-                transaction.hide(mWeiBoFragment);
+                transaction.hide(mOrderFoodFragment);
                 transaction.hide(mShoppingCartFragment);
                 transaction.commitAllowingStateLoss();
                 break;

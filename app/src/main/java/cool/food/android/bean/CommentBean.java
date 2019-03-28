@@ -4,17 +4,16 @@ import cn.bmob.v3.BmobObject;
 
 public class CommentBean extends BmobObject {
 
-    private String weiBoObjectId;
-    private long commentTime;//时间
+    private String restaurantId;
     private String value;//内容
-    private String sendUserName;
+    private String senderUserName;
 
-    public long getCommentTime() {
-        return commentTime;
+    public String getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setCommentTime(long commentTime) {
-        this.commentTime = commentTime;
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public String getValue() {
@@ -25,29 +24,20 @@ public class CommentBean extends BmobObject {
         this.value = value;
     }
 
-    public String getSendUserName() {
-        return sendUserName;
+    public String getSenderUserName() {
+        return senderUserName;
     }
 
-    public void setSendUserName(String sendUserName) {
-        this.sendUserName = sendUserName;
-    }
-
-    public String getWeiBoObjectId() {
-        return weiBoObjectId;
-    }
-
-    public void setWeiBoObjectId(String weiBoObjectId) {
-        this.weiBoObjectId = weiBoObjectId;
+    public void setSenderUserName(String senderUserName) {
+        this.senderUserName = senderUserName;
     }
 
     @Override
     public String toString() {
         return "CommentBean{" +
-                "weiBoObjectId='" + weiBoObjectId + '\'' +
-                ", commentTime=" + commentTime +
+                "restaurantId='" + restaurantId + '\'' +
                 ", value='" + value + '\'' +
-                ", sendUserName='" + sendUserName + '\'' +
+                ", senderUserName='" + senderUserName + '\'' +
                 '}';
     }
 }

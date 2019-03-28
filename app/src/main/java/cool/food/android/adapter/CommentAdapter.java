@@ -44,8 +44,8 @@ public class CommentAdapter extends BaseRVAdapter<CommentBean, CommentAdapter.Co
         @Override
         public void bindView(CommentBean commentBean, int position) {
             mCommentValue.setText(commentBean.getValue());
-            tvCommentSender.setText(commentBean.getSendUserName());
-            tvCommentTime.setText(TimeUtils.stampToDate(commentBean.getCommentTime()));
+            tvCommentSender.setText(commentBean.getSenderUserName());
+            tvCommentTime.setText(TimeUtils.stampToDate(commentBean.getCreatedAt()));
         }
     }
 }

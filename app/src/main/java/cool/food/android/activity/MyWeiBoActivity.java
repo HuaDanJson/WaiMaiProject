@@ -52,7 +52,7 @@ public class MyWeiBoActivity extends BaseActivity {
                     @Override
                     public void done(List<WeiBoBean> weiBoBeanList, BmobException e) {
                         if (e == null) {
-                            LogUtils.d("WeiBoFragment BmobQuery success:" + weiBoBeanList);
+                            LogUtils.d("OrderFoodFragment BmobQuery success:" + weiBoBeanList);
                             mWeiBoBeanList = weiBoBeanList;
                             if (mWeiBoAdapter == null) {
                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(MyWeiBoActivity.this));
@@ -64,7 +64,7 @@ public class MyWeiBoActivity extends BaseActivity {
                                 mWeiBoAdapter.setData(mWeiBoBeanList);
                             }
                         } else {
-                            LogUtils.d("WeiBoFragment BmobQuery failed : " + e);
+                            LogUtils.d("OrderFoodFragment BmobQuery failed : " + e);
                         }
                     }
                 });

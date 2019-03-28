@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/icon_welcom"
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
@@ -15,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="登录"
-        android:textColor="@color/red_common_pure"
+        android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"/>
 
@@ -23,7 +22,7 @@
         android:id="@+id/edt_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:hint="请输入用户名"
         android:textColorHint="@color/black"
         android:textSize="18sp"/>
@@ -32,7 +31,7 @@
         android:id="@+id/edt_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:hint="请输入密码"
         android:textColorHint="@color/black"
         android:textSize="18sp"/>
@@ -41,23 +40,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="150dp"
-            android:layout_height="80dp"
-            android:background="@drawable/icon_1154"
+            android:layout_height="60dp"
             android:text="登录"/>
 
         <Button
             android:id="@+id/btn_register"
             android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/icon_1154"
             android:text="注册"/>
 
     </LinearLayout>

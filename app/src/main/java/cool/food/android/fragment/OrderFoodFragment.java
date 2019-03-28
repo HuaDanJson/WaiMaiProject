@@ -33,8 +33,8 @@ import cool.food.android.adapter.WeiBoAdapter;
 import cool.food.android.bean.WeiBoBean;
 import cool.food.android.utils.ActivityUtil;
 
-
-public class WeiBoFragment extends Fragment implements View.OnTouchListener {
+//订餐
+public class OrderFoodFragment extends Fragment implements View.OnTouchListener {
 
     @BindView(R.id.rlv_book_reader) RecyclerView mRecyclerView;
     @BindView(R.id.tv_send_note_activity) TextView mSend;
@@ -79,7 +79,7 @@ public class WeiBoFragment extends Fragment implements View.OnTouchListener {
                     @Override
                     public void done(List<WeiBoBean> weiBoBeanList, BmobException e) {
                         if (e == null) {
-                            LogUtils.d("WeiBoFragment BmobQuery success:" + weiBoBeanList);
+                            LogUtils.d("OrderFoodFragment BmobQuery success:" + weiBoBeanList);
                             mWeiBoBeanList = weiBoBeanList;
                             if (mWeiBoAdapter == null) {
                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -92,7 +92,7 @@ public class WeiBoFragment extends Fragment implements View.OnTouchListener {
                             }
 
                         } else {
-                            LogUtils.d("WeiBoFragment BmobQuery failed : " + e);
+                            LogUtils.d("OrderFoodFragment BmobQuery failed : " + e);
                         }
                     }
                 });
@@ -103,7 +103,7 @@ public class WeiBoFragment extends Fragment implements View.OnTouchListener {
         public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
             if (mWeiBoAdapter == null) { return; }
             WeiBoBean weiBoBean = mWeiBoAdapter.getItem(position);
-            ActivityUtil.startReaderActivity(WeiBoFragment.this, weiBoBean);
+            ActivityUtil.startReaderActivity(OrderFoodFragment.this, weiBoBean);
         }
     };
 

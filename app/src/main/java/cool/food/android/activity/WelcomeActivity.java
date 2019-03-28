@@ -17,7 +17,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //第一：默认初始化
-        Bmob.initialize(this, "361b8d2729d5873bcc087cb265399155");
+        Bmob.initialize(this, "e8e83fe1a4be56bac297cd001fb36757");
         if (BmobUser.isLogin()) {
             CurrentUser currentUser = BmobUser.getCurrentUser(CurrentUser.class);
             CurrentUserHelper.getInstance().updateCurrentUser(currentUser);

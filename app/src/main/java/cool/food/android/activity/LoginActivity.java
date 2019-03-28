@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Bmob.initialize(this, "361b8d2729d5873bcc087cb265399155");
+        Bmob.initialize(this, "e8e83fe1a4be56bac297cd001fb36757");
     }
 
     @OnClick(R.id.btn_login)
