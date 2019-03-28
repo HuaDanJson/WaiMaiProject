@@ -1,7 +1,6 @@
 package cool.food.android.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -22,25 +20,22 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cool.food.android.R;
-import cool.food.android.activity.SendWeiBoActivity;
-import cool.food.android.adapter.WeiBoAdapter;
-import cool.food.android.bean.WeiBoBean;
+import cool.food.android.adapter.RestaurantAdapter;
+import cool.food.android.bean.RestaurantBean;
 import cool.food.android.utils.ActivityUtil;
 
 //订餐
 public class OrderFoodFragment extends Fragment implements View.OnTouchListener {
 
     @BindView(R.id.rlv_book_reader) RecyclerView mRecyclerView;
-    @BindView(R.id.tv_send_note_activity) TextView mSend;
 
-    private List<WeiBoBean> mWeiBoBeanList = new ArrayList<>();
-    private WeiBoAdapter mWeiBoAdapter;
+    private List<RestaurantBean> mRestaurantBeanList = new ArrayList<>();
+    private RestaurantAdapter mRestaurantAdapter;
     Unbinder unbinder;
 
     @Override
@@ -50,7 +45,7 @@ public class OrderFoodFragment extends Fragment implements View.OnTouchListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_moment, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_food, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -73,22 +68,22 @@ public class OrderFoodFragment extends Fragment implements View.OnTouchListener 
     }
 
     public void getBookList() {
-        BmobQuery<WeiBoBean> query = new BmobQuery<>();
+        BmobQuery<RestaurantBean> query = new BmobQuery<>();
         query.setLimit(50).order("createdAt")
-                .findObjects(new FindListener<WeiBoBean>() {
+                .findObjects(new FindListener<RestaurantBean>() {
                     @Override
-                    public void done(List<WeiBoBean> weiBoBeanList, BmobException e) {
+                    public void done(List<RestaurantBean> restaurantBeanList, BmobException e) {
                         if (e == null) {
-                            LogUtils.d("OrderFoodFragment BmobQuery success:" + weiBoBeanList);
-                            mWeiBoBeanList = weiBoBeanList;
-                            if (mWeiBoAdapter == null) {
+                            LogUtils.d("OrderFoodFragment BmobQuery success:" + restaurantBeanList);
+                            mRestaurantBeanList = restaurantBeanList;
+                            if (mRestaurantAdapter == null) {
                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                mWeiBoAdapter = new WeiBoAdapter();
-                                mWeiBoAdapter.setOnItemClickListener(mBookClickListener);
-                                mWeiBoAdapter.setDataSilently(mWeiBoBeanList);
-                                mRecyclerView.setAdapter(mWeiBoAdapter);
+                                mRestaurantAdapter = new RestaurantAdapter();
+                                mRestaurantAdapter.setOnItemClickListener(mBookClickListener);
+                                mRestaurantAdapter.setDataSilently(mRestaurantBeanList);
+                                mRecyclerView.setAdapter(mRestaurantAdapter);
                             } else {
-                                mWeiBoAdapter.setData(mWeiBoBeanList);
+                                mRestaurantAdapter.setData(mRestaurantBeanList);
                             }
 
                         } else {
@@ -101,9 +96,9 @@ public class OrderFoodFragment extends Fragment implements View.OnTouchListener 
     private AdapterView.OnItemClickListener mBookClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-            if (mWeiBoAdapter == null) { return; }
-            WeiBoBean weiBoBean = mWeiBoAdapter.getItem(position);
-            ActivityUtil.startReaderActivity(OrderFoodFragment.this, weiBoBean);
+            if (mRestaurantAdapter == null) { return; }
+            RestaurantBean restaurantBean = mRestaurantAdapter.getItem(position);
+            ActivityUtil.startRestaurantActivity(OrderFoodFragment.this, restaurantBean);
         }
     };
 
@@ -111,10 +106,5 @@ public class OrderFoodFragment extends Fragment implements View.OnTouchListener 
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @OnClick(R.id.tv_send_note_activity)
-    public void senNote() {
-        startActivity(new Intent(getActivity(), SendWeiBoActivity.class));
     }
 }

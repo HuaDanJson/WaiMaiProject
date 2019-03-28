@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment;
 import cn.bmob.v3.BmobUser;
 import cool.food.android.R;
 import cool.food.android.activity.LoginActivity;
-import cool.food.android.activity.ReaderActivity;
+import cool.food.android.activity.RestaurantActivity;
 import cool.food.android.base.CCApplication;
-import cool.food.android.bean.WeiBoBean;
+import cool.food.android.bean.RestaurantBean;
 import cool.food.android.constants.AppConstant;
 
 
@@ -24,20 +24,12 @@ public class ActivityUtil {
         activity.startActivity(intent);
     }
 
-    public static void startReaderActivity(Fragment fragment, WeiBoBean weiBoBean) {
+    public static void startRestaurantActivity(Fragment fragment, RestaurantBean restaurantBean) {
         if (fragment == null || fragment.getActivity() == null) { return; }
-        Intent intent = new Intent(fragment.getActivity(), ReaderActivity.class);
-        intent.putExtra(AppConstant.IntentKey.EXTRA_DATA, weiBoBean);
+        Intent intent = new Intent(fragment.getActivity(), RestaurantActivity.class);
+        intent.putExtra(AppConstant.IntentKey.EXTRA_DATA, restaurantBean);
         fragment.startActivity(intent);
         fragment.getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.slide_in_from_middle_to_middle);
-    }
-
-    public static void startReaderActivity(Activity activity, WeiBoBean weiBoBean) {
-        if (activity == null) { return; }
-        Intent intent = new Intent(activity, ReaderActivity.class);
-        intent.putExtra(AppConstant.IntentKey.EXTRA_DATA, weiBoBean);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.enter_from_right, R.anim.slide_in_from_middle_to_middle);
     }
 
     public static void startLoginActivity(Activity activity) {

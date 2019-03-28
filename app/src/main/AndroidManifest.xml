@@ -32,6 +32,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.RestaurantActivity">
+        </activity>
         <activity
             android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait">
@@ -48,18 +50,11 @@
         </provider>
 
         <activity
-            android:name=".activity.ReaderActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity
             android:name=".activity.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
-        <activity
-            android:name=".activity.SendWeiBoActivity"
-            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"/>
@@ -69,15 +64,9 @@
         <activity
             android:name=".activity.ChangePwdActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.SearchWeiBoActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.CommentActivity"
-            android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.MyWeiBoActivity"
+            android:name=".activity.CommentActivity"
             android:screenOrientation="portrait"/>
 
     </application>

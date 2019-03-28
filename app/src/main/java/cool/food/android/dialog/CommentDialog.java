@@ -30,7 +30,7 @@ import cool.food.android.adapter.CommentAdapter;
 import cool.food.android.base.BaseFragmentDialog;
 import cool.food.android.bean.CommentBean;
 import cool.food.android.bean.CurrentUser;
-import cool.food.android.bean.WeiBoBean;
+import cool.food.android.bean.RestaurantBean;
 import cool.food.android.utils.CurrentUserHelper;
 import cool.food.android.utils.ToastHelper;
 
@@ -42,7 +42,7 @@ public class CommentDialog extends BaseFragmentDialog {
     @BindView(R.id.rl_comment_dialog) RelativeLayout mCommentDialog;
     @BindView(R.id.btn_send_comment) Button mSendComment;
     private List<CommentBean> mCommentBeanList = new ArrayList<>();
-    private WeiBoBean mWeiBoBean;
+    private RestaurantBean mRestaurantBean;
     private CommentAdapter mCommentAdapter;
     Unbinder unbinder;
 
@@ -69,9 +69,9 @@ public class CommentDialog extends BaseFragmentDialog {
         getCommentList();
     }
 
-    public void setData(WeiBoBean weiBoBean) {
-        if (weiBoBean == null) {tryHide();}
-        this.mWeiBoBean = weiBoBean;
+    public void setData(RestaurantBean restaurantBean) {
+        if (restaurantBean == null) {tryHide();}
+        this.mRestaurantBean = restaurantBean;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class CommentDialog extends BaseFragmentDialog {
         } else {
             CommentBean commentBean = new CommentBean();
             commentBean.setValue(commentValue);
-            commentBean.setRestaurantId(mWeiBoBean.getObjectId());
+            commentBean.setRestaurantId(mRestaurantBean.getObjectId());
             CurrentUser currentUser = CurrentUserHelper.getInstance().getCurrentUser();
             if (currentUser != null) {
                 commentBean.setSenderUserName(currentUser.getUsername());
@@ -115,7 +115,7 @@ public class CommentDialog extends BaseFragmentDialog {
 
     public void getCommentList() {
         BmobQuery<CommentBean> query = new BmobQuery<>();
-        query.addWhereEqualTo("weiBoObjectId", mWeiBoBean.getObjectId());
+        query.addWhereEqualTo("restaurantId", mRestaurantBean.getObjectId());
         query.setLimit(50).order("createdAt")
                 .findObjects(new FindListener<CommentBean>() {
                     @Override

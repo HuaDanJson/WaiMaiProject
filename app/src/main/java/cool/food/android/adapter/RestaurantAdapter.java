@@ -11,23 +11,22 @@ import butterknife.ButterKnife;
 import cool.food.android.R;
 import cool.food.android.base.BaseRVAdapter;
 import cool.food.android.base.IViewHolder;
-import cool.food.android.bean.WeiBoBean;
-import cool.food.android.utils.TimeUtils;
+import cool.food.android.bean.RestaurantBean;
 
 
-public class WeiBoAdapter extends BaseRVAdapter<WeiBoBean, WeiBoAdapter.ReaderAdapterHolder> {
+public class RestaurantAdapter extends BaseRVAdapter<RestaurantBean, RestaurantAdapter.ReaderAdapterHolder> {
 
     @Override
     protected ReaderAdapterHolder doCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ReaderAdapterHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_book_reader_adapter, viewGroup, false));
+        return new ReaderAdapterHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_restaurant_adapter, viewGroup, false));
     }
 
     @Override
-    protected void bindItemData(ReaderAdapterHolder viewHolder, WeiBoBean weiBoBean, int position) {
-        viewHolder.bindView(weiBoBean, position);
+    protected void bindItemData(ReaderAdapterHolder viewHolder, RestaurantBean restaurantBean, int position) {
+        viewHolder.bindView(restaurantBean, position);
     }
 
-    public class ReaderAdapterHolder extends RecyclerView.ViewHolder implements IViewHolder<WeiBoBean> {
+    public class ReaderAdapterHolder extends RecyclerView.ViewHolder implements IViewHolder<RestaurantBean> {
 
         @BindView(R.id.tv_title_item_book_reader)
         TextView mTitle;
@@ -42,10 +41,10 @@ public class WeiBoAdapter extends BaseRVAdapter<WeiBoBean, WeiBoAdapter.ReaderAd
         }
 
         @Override
-        public void bindView(WeiBoBean weiBoBean, int position) {
-            mTitle.setText(weiBoBean.getTitle());
-            mIntroduce.setText(weiBoBean.getIntroduce());
-            mTime.setText(TimeUtils.stampToDate(weiBoBean.getCreatTime()));
+        public void bindView(RestaurantBean restaurantBean, int position) {
+            mTitle.setText(restaurantBean.getName());
+//            mIntroduce.setText(weiBoBean.getIntroduce());
+//            mTime.setText(TimeUtils.stampToDate(weiBoBean.getCreatTime()));
         }
     }
 }

@@ -5,8 +5,9 @@ import android.support.multidex.MultiDexApplication;
 
 import com.blankj.utilcode.util.Utils;
 
+import cool.food.android.utils.FoodDaoUtils;
+import cool.food.android.utils.RestaurantDaoUtils;
 import cool.food.android.utils.ToastHelper;
-import cool.food.android.utils.WeiBoDaoUtils;
 
 
 public class CCApplication extends MultiDexApplication {
@@ -27,6 +28,7 @@ public class CCApplication extends MultiDexApplication {
         INSTANCE = this;
         Utils.init(this);
         ToastHelper.init(this);
-        WeiBoDaoUtils.Init(this);
+        RestaurantDaoUtils.Init(this);
+        FoodDaoUtils.Init(this);
     }
 }

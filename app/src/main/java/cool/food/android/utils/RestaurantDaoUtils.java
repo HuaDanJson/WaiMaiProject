@@ -5,27 +5,26 @@ import android.content.Context;
 import java.util.List;
 
 import cool.android.greendao.DaoManager;
-import cool.android.greendao.WeiBoBeanDao;
-import cool.food.android.bean.WeiBoBean;
+import cool.android.greendao.RestaurantBeanDao;
+import cool.food.android.bean.RestaurantBean;
 
+public class RestaurantDaoUtils {
 
-public class WeiBoDaoUtils {
+    private RestaurantBeanDao mRestaurantBeanDao;
 
-    private WeiBoBeanDao weiBoBeanDao;
+    private static RestaurantDaoUtils mRestaurantDaoUtils = null;
 
-    private static WeiBoDaoUtils weiBoDaoUtils = null;
-
-    public WeiBoDaoUtils(Context context) {
-        weiBoBeanDao = DaoManager.getInstance(context).getNewSession().getWeiBoBeanDao();
+    public RestaurantDaoUtils(Context context) {
+        mRestaurantBeanDao = DaoManager.getInstance(context).getNewSession().getRestaurantBeanDao();
     }
 
-    public static WeiBoDaoUtils getInstance() {
-        return weiBoDaoUtils;
+    public static RestaurantDaoUtils getInstance() {
+        return mRestaurantDaoUtils;
     }
 
     public static void Init(Context context) {
-        if (weiBoDaoUtils == null) {
-            weiBoDaoUtils = new WeiBoDaoUtils(context);
+        if (mRestaurantDaoUtils == null) {
+            mRestaurantDaoUtils = new RestaurantDaoUtils(context);
         }
     }
 
@@ -35,8 +34,8 @@ public class WeiBoDaoUtils {
      * @param
      * @return
      */
-    public void insertOneData(WeiBoBean weiBoBean) {
-        weiBoBeanDao.insertOrReplace(weiBoBean);
+    public void insertOneData(RestaurantBean restaurantBean) {
+        mRestaurantBeanDao.insertOrReplace(restaurantBean);
     }
 
     /**
@@ -45,10 +44,10 @@ public class WeiBoDaoUtils {
      * @param dbUserInvestmentList
      * @return
      */
-    public boolean insertManyData(List<WeiBoBean> dbUserInvestmentList) {
+    public boolean insertManyData(List<RestaurantBean> dbUserInvestmentList) {
         boolean flag = false;
         try {
-            weiBoBeanDao.insertOrReplaceInTx(dbUserInvestmentList);
+            mRestaurantBeanDao.insertOrReplaceInTx(dbUserInvestmentList);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,10 +61,10 @@ public class WeiBoDaoUtils {
      * @param dbUserInvestment
      * @return
      */
-    public boolean deleteOneData(WeiBoBean dbUserInvestment) {
+    public boolean deleteOneData(RestaurantBean dbUserInvestment) {
         boolean flag = false;
         try {
-            weiBoBeanDao.delete(dbUserInvestment);
+            mRestaurantBeanDao.delete(dbUserInvestment);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,7 +80,7 @@ public class WeiBoDaoUtils {
     public boolean deleteOneDataByKey(long id) {
         boolean flag = false;
         try {
-            weiBoBeanDao.deleteByKey(id);
+            mRestaurantBeanDao.deleteByKey(id);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,10 +93,10 @@ public class WeiBoDaoUtils {
      *
      * @return
      */
-    public boolean deleteManData(List<WeiBoBean> dbUserInvestmentList) {
+    public boolean deleteManData(List<RestaurantBean> dbUserInvestmentList) {
         boolean flag = false;
         try {
-            weiBoBeanDao.deleteInTx(dbUserInvestmentList);
+            mRestaurantBeanDao.deleteInTx(dbUserInvestmentList);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +112,7 @@ public class WeiBoDaoUtils {
     public boolean deleteAll() {
         boolean flag = false;
         try {
-            weiBoBeanDao.deleteAll();
+            mRestaurantBeanDao.deleteAll();
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,10 +126,10 @@ public class WeiBoDaoUtils {
      *
      * @return
      */
-    public boolean updateData(WeiBoBean dbUserInvestment) {
+    public boolean updateData(RestaurantBean dbUserInvestment) {
         boolean flag = false;
         try {
-            weiBoBeanDao.update(dbUserInvestment);
+            mRestaurantBeanDao.update(dbUserInvestment);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,10 +142,10 @@ public class WeiBoDaoUtils {
      *
      * @return
      */
-    public boolean updateManData(List<WeiBoBean> dbUserInvestmentList) {
+    public boolean updateManData(List<RestaurantBean> dbUserInvestmentList) {
         boolean flag = false;
         try {
-            weiBoBeanDao.updateInTx(dbUserInvestmentList);
+            mRestaurantBeanDao.updateInTx(dbUserInvestmentList);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,8 +158,8 @@ public class WeiBoDaoUtils {
      *
      * @return
      */
-    public WeiBoBean queryOneData(long id) {
-        return weiBoBeanDao.load(id);
+    public RestaurantBean queryOneData(long id) {
+        return mRestaurantBeanDao.load(id);
     }
 
     /**
@@ -168,35 +167,7 @@ public class WeiBoDaoUtils {
      *
      * @return
      */
-    public List<WeiBoBean> queryAllData() {
-        return weiBoBeanDao.loadAll();
+    public List<RestaurantBean> queryAllData() {
+        return mRestaurantBeanDao.loadAll();
     }
-
-    /**
-     * 完成对数据库条件查询数据操作 senderId
-     *
-     * @return
-     */
-    public List<WeiBoBean> queryCurrentCollectionData(String currentUserName) {
-        return weiBoBeanDao.queryBuilder().where(WeiBoBeanDao.Properties.CollectionUserName.eq(currentUserName)).build().list();
-    }
-
-//    /**
-//     * 完成对数据库条件查询数据操作 senderId
-//     *
-//     * @return
-//     */
-//    public List<WeiBoBean> queryDataDependCurrentUserId(int currentUserId) {
-//        return weiBoBeanDao.queryBuilder().where(WeiBoBeanDao.Properties.CurrentUserId.eq(currentUserId)).build().list();
-//    }
-//
-//    /**
-//     * 完成对数据库条件查询数据操作 FriendShipID
-//     *
-//     * @return
-//     */
-//    public List<WeiBoBean> queryDataDependFriendShipID(String friendShipID) {
-//        return weiBoBeanDao.queryBuilder().where(WeiBoBeanDao.Properties.FriendshipId.eq(friendShipID)).build().list();
-//    }
-
 }

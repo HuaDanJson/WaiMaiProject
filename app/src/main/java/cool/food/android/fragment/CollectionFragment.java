@@ -20,27 +20,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cool.food.android.R;
-import cool.food.android.adapter.WeiBoAdapter;
+import cool.food.android.adapter.RestaurantAdapter;
 import cool.food.android.bean.CurrentUser;
-import cool.food.android.bean.WeiBoBean;
+import cool.food.android.bean.RestaurantBean;
 import cool.food.android.utils.ActivityUtil;
 import cool.food.android.utils.CurrentUserHelper;
-import cool.food.android.utils.WeiBoDaoUtils;
+import cool.food.android.utils.RestaurantDaoUtils;
 
 //收藏
 public class CollectionFragment extends Fragment implements View.OnTouchListener {
 
     @BindView(R.id.rv_note_activity) RecyclerView mRecyclerView;
 
-    private List<WeiBoBean> mWeiBoBeanList = new ArrayList<>();
-    private WeiBoAdapter mWeiBoAdapter;
+    private List<RestaurantBean> mRestaurantBeanList = new ArrayList<>();
+    private RestaurantAdapter mRestaurantAdapter;
     private CurrentUser mCurrentUser;
 
     Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_collection, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -82,15 +82,15 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
             mCurrentUser = CurrentUserHelper.getInstance().getCurrentUser();
         }
         if (mCurrentUser != null) {
-            mWeiBoBeanList = WeiBoDaoUtils.getInstance().queryCurrentCollectionData(mCurrentUser.getUsername());
-            if (mWeiBoAdapter == null) {
+            mRestaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
+            if (mRestaurantAdapter == null) {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                mWeiBoAdapter = new WeiBoAdapter();
-                mWeiBoAdapter.setOnItemClickListener(mBookClickListener);
-                mWeiBoAdapter.setDataSilently(mWeiBoBeanList);
-                mRecyclerView.setAdapter(mWeiBoAdapter);
+                mRestaurantAdapter = new RestaurantAdapter();
+                mRestaurantAdapter.setOnItemClickListener(mBookClickListener);
+                mRestaurantAdapter.setDataSilently(mRestaurantBeanList);
+                mRecyclerView.setAdapter(mRestaurantAdapter);
             } else {
-                mWeiBoAdapter.setData(mWeiBoBeanList);
+                mRestaurantAdapter.setData(mRestaurantBeanList);
             }
         }
     }
@@ -98,9 +98,9 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
     private AdapterView.OnItemClickListener mBookClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-            if (mWeiBoAdapter == null) { return; }
-            WeiBoBean weiBoBean = mWeiBoAdapter.getItem(position);
-            ActivityUtil.startReaderActivity(CollectionFragment.this, weiBoBean);
+            if (mRestaurantAdapter == null) { return; }
+            RestaurantBean restaurantBean = mRestaurantAdapter.getItem(position);
+            ActivityUtil.startRestaurantActivity(CollectionFragment.this, restaurantBean);
         }
     };
 }

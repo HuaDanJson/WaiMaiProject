@@ -18,8 +18,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cool.food.android.R;
 import cool.food.android.activity.ChangePwdActivity;
-import cool.food.android.activity.MyWeiBoActivity;
-import cool.food.android.activity.SearchWeiBoActivity;
 import cool.food.android.bean.CurrentUser;
 import cool.food.android.dialog.LogoutDialog;
 import cool.food.android.utils.CurrentUserHelper;
@@ -30,7 +28,6 @@ public class MeFragment extends Fragment implements View.OnTouchListener {
     @BindView(R.id.tv_logout) TextView mLogout;
     @BindView(R.id.tv_change_pwd) TextView mChangePwd;
     @BindView(R.id.tv_title) TextView mUserName;
-    @BindView(R.id.tv_search_weibo) TextView mSearchWeiBo;
     @BindView(R.id.tv_my_weibo) TextView mMyWeiBo;
 
     private LogoutDialog mLogoutDialog;
@@ -44,7 +41,7 @@ public class MeFragment extends Fragment implements View.OnTouchListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_video, container, false);
+        View view = inflater.inflate(R.layout.fragment_me, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -91,15 +88,5 @@ public class MeFragment extends Fragment implements View.OnTouchListener {
             mLogoutDialog = new LogoutDialog();
         }
         mLogoutDialog.tryShow(getChildFragmentManager());
-    }
-
-    @OnClick(R.id.tv_search_weibo)
-    public void searchClicked() {
-        startActivity(new Intent(getActivity(), SearchWeiBoActivity.class));
-    }
-
-    @OnClick(R.id.tv_my_weibo)
-    public void myWeiBoClicked() {
-        startActivity(new Intent(getActivity(), MyWeiBoActivity.class));
     }
 }
