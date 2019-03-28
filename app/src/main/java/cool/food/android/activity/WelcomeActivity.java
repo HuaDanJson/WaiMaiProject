@@ -22,6 +22,7 @@ public class WelcomeActivity extends BaseActivity {
             CurrentUser currentUser = BmobUser.getCurrentUser(CurrentUser.class);
             CurrentUserHelper.getInstance().updateCurrentUser(currentUser);
             toActivity(MainActivity.class);
+            finish();
         } else {
             toActivity(LoginActivity.class);
             finish();

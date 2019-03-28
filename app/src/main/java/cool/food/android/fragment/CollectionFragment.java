@@ -21,10 +21,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cool.food.android.R;
 import cool.food.android.adapter.RestaurantAdapter;
-import cool.food.android.bean.CurrentUser;
 import cool.food.android.bean.RestaurantBean;
 import cool.food.android.utils.ActivityUtil;
-import cool.food.android.utils.CurrentUserHelper;
 import cool.food.android.utils.RestaurantDaoUtils;
 
 //收藏
@@ -34,7 +32,6 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
 
     private List<RestaurantBean> mRestaurantBeanList = new ArrayList<>();
     private RestaurantAdapter mRestaurantAdapter;
-    private CurrentUser mCurrentUser;
 
     Unbinder unbinder;
 
@@ -49,7 +46,6 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.setOnTouchListener(this);
-        mCurrentUser = CurrentUserHelper.getInstance().getCurrentUser();
     }
 
     @Override
@@ -78,20 +74,15 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
     }
 
     public void getCollectionData() {
-        if (mCurrentUser == null) {
-            mCurrentUser = CurrentUserHelper.getInstance().getCurrentUser();
-        }
-        if (mCurrentUser != null) {
-            mRestaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
-            if (mRestaurantAdapter == null) {
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                mRestaurantAdapter = new RestaurantAdapter();
-                mRestaurantAdapter.setOnItemClickListener(mBookClickListener);
-                mRestaurantAdapter.setDataSilently(mRestaurantBeanList);
-                mRecyclerView.setAdapter(mRestaurantAdapter);
-            } else {
-                mRestaurantAdapter.setData(mRestaurantBeanList);
-            }
+        mRestaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
+        if (mRestaurantAdapter == null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRestaurantAdapter = new RestaurantAdapter();
+            mRestaurantAdapter.setOnItemClickListener(mBookClickListener);
+            mRestaurantAdapter.setDataSilently(mRestaurantBeanList);
+            mRecyclerView.setAdapter(mRestaurantAdapter);
+        } else {
+            mRestaurantAdapter.setData(mRestaurantBeanList);
         }
     }
 

@@ -35,6 +35,8 @@ public class ActivityUtil {
     public static void startLoginActivity(Activity activity) {
         BmobUser.logOut();
         CurrentUserHelper.getInstance().updateCurrentUser(null);
+        RestaurantDaoUtils.getInstance().deleteAll();
+        FoodDaoUtils.getInstance().deleteAll();
         if (activity == null) {
             Intent intent = new Intent(CCApplication.getInstance(), LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

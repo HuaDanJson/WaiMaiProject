@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ import cool.food.android.base.CCApplication;
 import cool.food.android.bean.FoodBean;
 import cool.food.android.bean.RestaurantBean;
 import cool.food.android.constants.AppConstant;
+import cool.food.android.utils.RestaurantDaoUtils;
+import cool.food.android.utils.ToastHelper;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RestaurantActivity extends BaseActivity {
@@ -58,12 +61,20 @@ public class RestaurantActivity extends BaseActivity {
         mRestaurantName.setText(mRestaurantBean.getName());
         mRestaurantAddress.setText(mRestaurantBean.getAddress());
         mRestaurantTel.setText("电话：" + mRestaurantBean.getPhoneNumber());
+        List<RestaurantBean> restaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
+        if (restaurantBeanList == null || restaurantBeanList.isEmpty()) {return;}
+        for (RestaurantBean restaurantBean : restaurantBeanList) {
+            if (restaurantBean.getObjectId().equals(mRestaurantBean.getObjectId())) {
+                mCollection.setText("取消收藏");
+                break;
+            }
+        }
 
     }
 
     public void getFoodList() {
         BmobQuery<FoodBean> query = new BmobQuery<>();
-        query.addWhereEqualTo("restaurantId",mRestaurantBean.getObjectId());
+        query.addWhereEqualTo("restaurantId", mRestaurantBean.getObjectId());
         query.setLimit(80).order("createdAt")
                 .findObjects(new FindListener<FoodBean>() {
                     @Override
@@ -101,5 +112,20 @@ public class RestaurantActivity extends BaseActivity {
             return;
         }
         startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_collection)
+    public void collectionClicked() {
+        String text = mCollection.getText().toString();
+        if (TextUtils.isEmpty(text)) {return;}
+        if ("收藏".equals(text)) {
+            RestaurantDaoUtils.getInstance().insertOneData(mRestaurantBean);
+            mCollection.setText("取消收藏");
+            ToastHelper.showShortMessage("收藏成功");
+        } else {
+            RestaurantDaoUtils.getInstance().deleteOneData(mRestaurantBean);
+            mCollection.setText("收藏");
+            ToastHelper.showShortMessage("取消收藏成功");
+        }
     }
 }
