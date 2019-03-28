@@ -23,7 +23,7 @@
         android:layout_marginTop="180dp"
         android:background="@drawable/shape_blue_10dp"
         android:gravity="center"
-        android:text="我发布的微博"
+        android:text="我的订单"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"/>

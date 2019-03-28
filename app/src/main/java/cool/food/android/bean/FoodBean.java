@@ -19,14 +19,17 @@ public class FoodBean extends BmobObject {
     private String foodPrice;
     private String foodAvatar;
 
-    @Generated(hash = 948189695)
+    private int buyCount;
+
+    @Generated(hash = 1643581782)
     public FoodBean(long creatTime, String restaurantId, String foodName,
-                    String foodPrice, String foodAvatar) {
+            String foodPrice, String foodAvatar, int buyCount) {
         this.creatTime = creatTime;
         this.restaurantId = restaurantId;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
         this.foodAvatar = foodAvatar;
+        this.buyCount = buyCount;
     }
 
     @Generated(hash = 895705851)
@@ -82,5 +85,13 @@ public class FoodBean extends BmobObject {
                 ", foodPrice='" + foodPrice + '\'' +
                 ", foodAvatar='" + foodAvatar + '\'' +
                 '}';
+    }
+
+    public int getBuyCount() {
+        return this.buyCount;
+    }
+
+    public void setBuyCount(int buyCount) {
+        this.buyCount = buyCount;
     }
 }

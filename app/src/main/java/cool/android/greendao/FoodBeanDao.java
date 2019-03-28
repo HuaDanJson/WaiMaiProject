@@ -29,6 +29,7 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
         public final static Property FoodName = new Property(2, String.class, "foodName", false, "FOOD_NAME");
         public final static Property FoodPrice = new Property(3, String.class, "foodPrice", false, "FOOD_PRICE");
         public final static Property FoodAvatar = new Property(4, String.class, "foodAvatar", false, "FOOD_AVATAR");
+        public final static Property BuyCount = new Property(5, int.class, "buyCount", false, "BUY_COUNT");
     }
 
 
@@ -48,7 +49,8 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
                 "\"FoodBean\" TEXT," + // 1: restaurantId
                 "\"FOOD_NAME\" TEXT," + // 2: foodName
                 "\"FOOD_PRICE\" TEXT," + // 3: foodPrice
-                "\"FOOD_AVATAR\" TEXT);"); // 4: foodAvatar
+                "\"FOOD_AVATAR\" TEXT," + // 4: foodAvatar
+                "\"BUY_COUNT\" INTEGER NOT NULL );"); // 5: buyCount
     }
 
     /** Drops the underlying database table. */
@@ -81,6 +83,7 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
         if (foodAvatar != null) {
             stmt.bindString(5, foodAvatar);
         }
+        stmt.bindLong(6, entity.getBuyCount());
     }
 
     @Override
@@ -107,6 +110,7 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
         if (foodAvatar != null) {
             stmt.bindString(5, foodAvatar);
         }
+        stmt.bindLong(6, entity.getBuyCount());
     }
 
     @Override
@@ -121,7 +125,8 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // restaurantId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // foodName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // foodPrice
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // foodAvatar
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // foodAvatar
+            cursor.getInt(offset + 5) // buyCount
         );
         return entity;
     }
@@ -133,6 +138,7 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
         entity.setFoodName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setFoodPrice(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setFoodAvatar(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setBuyCount(cursor.getInt(offset + 5));
      }
     
     @Override

@@ -32,7 +32,7 @@ import cool.food.android.utils.ActivityUtil;
 //订餐
 public class OrderFoodFragment extends Fragment implements View.OnTouchListener {
 
-    @BindView(R.id.rlv_book_reader) RecyclerView mRecyclerView;
+    @BindView(R.id.rlv_restaurant) RecyclerView mRecyclerView;
 
     private List<RestaurantBean> mRestaurantBeanList = new ArrayList<>();
     private RestaurantAdapter mRestaurantAdapter;
@@ -59,7 +59,7 @@ public class OrderFoodFragment extends Fragment implements View.OnTouchListener 
     @Override
     public void onResume() {
         super.onResume();
-        getBookList();
+        getRestaurantList();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class OrderFoodFragment extends Fragment implements View.OnTouchListener 
         return true;
     }
 
-    public void getBookList() {
+    public void getRestaurantList() {
         BmobQuery<RestaurantBean> query = new BmobQuery<>();
         query.setLimit(50).order("createdAt")
                 .findObjects(new FindListener<RestaurantBean>() {
