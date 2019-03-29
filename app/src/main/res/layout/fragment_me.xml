@@ -26,7 +26,8 @@
         android:text="我的订单"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/tv_change_pwd"

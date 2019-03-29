@@ -11,15 +11,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import cool.food.android.R;
-import cool.food.android.adapter.FoodAdapter;
+import cool.food.android.adapter.OrderFoodAdapter;
 import cool.food.android.bean.FoodBean;
 import cool.food.android.utils.FoodDaoUtils;
 
@@ -28,9 +30,11 @@ public class ShoppingCartFragment extends Fragment implements View.OnTouchListen
 
     @BindView(R.id.rv_shopping_cart)
     RecyclerView mRecyclerView;
+    @BindView(R.id.btn_pay)
+    Button mPay;
 
     private List<FoodBean> mFoodBeanList = new ArrayList<>();
-    private FoodAdapter mFoodAdapter;
+    private OrderFoodAdapter mOrderFoodAdapter;
 
     Unbinder unbinder;
 
@@ -73,13 +77,18 @@ public class ShoppingCartFragment extends Fragment implements View.OnTouchListen
 
     public void getCollectionData() {
         mFoodBeanList = FoodDaoUtils.getInstance().queryAllData();
-        if (mFoodAdapter == null) {
+        if (mOrderFoodAdapter == null) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mFoodAdapter = new FoodAdapter();
-            mFoodAdapter.setDataSilently(mFoodBeanList);
-            mRecyclerView.setAdapter(mFoodAdapter);
+            mOrderFoodAdapter = new OrderFoodAdapter();
+            mOrderFoodAdapter.setDataSilently(mFoodBeanList);
+            mRecyclerView.setAdapter(mOrderFoodAdapter);
         } else {
-            mFoodAdapter.setData(mFoodBeanList);
+            mOrderFoodAdapter.setData(mFoodBeanList);
         }
+    }
+
+    @OnClick(R.id.btn_pay)
+    public void payClicked() {
+
     }
 }

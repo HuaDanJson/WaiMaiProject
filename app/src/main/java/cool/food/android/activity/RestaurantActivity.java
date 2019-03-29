@@ -30,6 +30,7 @@ import cool.food.android.base.CCApplication;
 import cool.food.android.bean.FoodBean;
 import cool.food.android.bean.RestaurantBean;
 import cool.food.android.constants.AppConstant;
+import cool.food.android.utils.FoodDaoUtils;
 import cool.food.android.utils.RestaurantDaoUtils;
 import cool.food.android.utils.ToastHelper;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,6 +43,7 @@ public class RestaurantActivity extends BaseActivity {
     @BindView(R.id.tv_restaurant_tel) TextView mRestaurantTel;
     @BindView(R.id.civ_call_phone) CircleImageView mCallPhone;
     @BindView(R.id.rlv_food) RecyclerView mRecyclerView;
+    @BindView(R.id.btn_add_shopping_cart) Button mAddShoppingCart;
 
     private RestaurantBean mRestaurantBean;
     private OrderFoodAdapter mOrderFoodAdapter;
@@ -64,7 +66,10 @@ public class RestaurantActivity extends BaseActivity {
         List<RestaurantBean> restaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
         if (restaurantBeanList == null || restaurantBeanList.isEmpty()) {return;}
         for (RestaurantBean restaurantBean : restaurantBeanList) {
-            if (restaurantBean.getObjectId().equals(mRestaurantBean.getObjectId())) {
+            if (restaurantBean == null) {continue;}
+            String resID = restaurantBean.getObjectId();
+            if (TextUtils.isEmpty(resID)) {continue;}
+            if (resID.equals(mRestaurantBean.getObjectId())) {
                 mCollection.setText("取消收藏");
                 break;
             }
@@ -127,5 +132,17 @@ public class RestaurantActivity extends BaseActivity {
             mCollection.setText("收藏");
             ToastHelper.showShortMessage("取消收藏成功");
         }
+    }
+
+    @OnClick(R.id.btn_add_shopping_cart)
+    public void addShopingCartClicked() {
+        List<FoodBean> mFoodBeanList = mOrderFoodAdapter.getData();
+        if (mFoodBeanList == null || mFoodBeanList.isEmpty()) {return;}
+        for (FoodBean foodBean : mFoodBeanList) {
+            if (foodBean.getBuyCount() > 0) {
+                FoodDaoUtils.getInstance().insertOneData(foodBean);
+            }
+        }
+        ToastHelper.showShortMessage("添加购物车成功");
     }
 }
