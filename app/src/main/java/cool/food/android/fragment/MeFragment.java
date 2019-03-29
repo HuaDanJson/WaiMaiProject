@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cool.food.android.R;
 import cool.food.android.activity.ChangePwdActivity;
+import cool.food.android.activity.MyOrderActivity;
 import cool.food.android.bean.CurrentUser;
 import cool.food.android.dialog.LogoutDialog;
 import cool.food.android.utils.CurrentUserHelper;
@@ -28,7 +29,7 @@ public class MeFragment extends Fragment implements View.OnTouchListener {
     @BindView(R.id.tv_logout) TextView mLogout;
     @BindView(R.id.tv_change_pwd) TextView mChangePwd;
     @BindView(R.id.tv_title) TextView mUserName;
-    @BindView(R.id.tv_my_weibo) TextView mMyWeiBo;
+    @BindView(R.id.tv_my_order) TextView mMyWeiBo;
 
     private LogoutDialog mLogoutDialog;
     private CurrentUser mCurrentUser;
@@ -80,6 +81,11 @@ public class MeFragment extends Fragment implements View.OnTouchListener {
     @OnClick(R.id.tv_change_pwd)
     public void changePwdClicked() {
         startActivity(new Intent(getActivity(), ChangePwdActivity.class));
+    }
+
+    @OnClick(R.id.tv_my_order)
+    public void myOrderClicked() {
+        startActivity(new Intent(getActivity(), MyOrderActivity.class));
     }
 
     @OnClick(R.id.tv_logout)

@@ -15,7 +15,7 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/tv_my_weibo"
+        android:id="@+id/tv_my_order"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="56dp"
@@ -26,14 +26,13 @@
         android:text="我的订单"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="invisible"/>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tv_change_pwd"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/tv_my_weibo"
+        android:layout_below="@+id/tv_my_order"
         android:layout_marginLeft="56dp"
         android:layout_marginRight="56dp"
         android:layout_marginTop="40dp"

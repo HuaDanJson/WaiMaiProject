@@ -12,8 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,9 +28,11 @@ import cool.food.android.utils.RestaurantDaoUtils;
 //收藏
 public class CollectionFragment extends Fragment implements View.OnTouchListener {
 
-    @BindView(R.id.rv_note_activity) RecyclerView mRecyclerView;
+    @BindView(R.id.rv_note_activity)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.tv_empty)
+    TextView mEmpty;
 
-    private List<RestaurantBean> mRestaurantBeanList = new ArrayList<>();
     private RestaurantAdapter mRestaurantAdapter;
 
     Unbinder unbinder;
@@ -74,16 +76,8 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
     }
 
     public void getCollectionData() {
-        mRestaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
-        if (mRestaurantAdapter == null) {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRestaurantAdapter = new RestaurantAdapter();
-            mRestaurantAdapter.setOnItemClickListener(mBookClickListener);
-            mRestaurantAdapter.setDataSilently(mRestaurantBeanList);
-            mRecyclerView.setAdapter(mRestaurantAdapter);
-        } else {
-            mRestaurantAdapter.setData(mRestaurantBeanList);
-        }
+        List<RestaurantBean> restaurantBeanList = RestaurantDaoUtils.getInstance().queryAllData();
+        initRecyclerView(restaurantBeanList);
     }
 
     private AdapterView.OnItemClickListener mBookClickListener = new AdapterView.OnItemClickListener() {
@@ -94,4 +88,22 @@ public class CollectionFragment extends Fragment implements View.OnTouchListener
             ActivityUtil.startRestaurantActivity(CollectionFragment.this, restaurantBean);
         }
     };
+
+    public void initRecyclerView(List<RestaurantBean> list) {
+        if (mRecyclerView == null) {return;}
+        if (list == null || list.isEmpty()) {
+            mEmpty.setVisibility(View.VISIBLE);
+        } else {
+            mEmpty.setVisibility(View.GONE);
+        }
+        if (mRestaurantAdapter == null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRestaurantAdapter = new RestaurantAdapter();
+            mRestaurantAdapter.setOnItemClickListener(mBookClickListener);
+            mRestaurantAdapter.setDataSilently(list);
+            mRecyclerView.setAdapter(mRestaurantAdapter);
+        } else {
+            mRestaurantAdapter.setData(list);
+        }
+    }
 }
