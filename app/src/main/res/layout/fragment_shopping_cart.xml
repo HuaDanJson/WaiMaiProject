@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_title"
@@ -17,27 +16,48 @@
         android:textSize="20sp"
         android:textStyle="bold"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_shopping_cart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/tv_title"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_shopping_cart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/btn_pay"
-        android:layout_width="wrap_content"
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="@dimen/dp5"
+            android:layout_marginRight="@dimen/dp10"
+            android:padding="@dimen/dp5"
+            android:text="结算"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginBottom="@dimen/dp5"
-        android:layout_marginRight="@dimen/dp10"
-        android:padding="@dimen/dp5"
-        android:text="结算"/>
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="购 物 车 空 空 的"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
-</LinearLayout>
+
+</RelativeLayout>

@@ -30,6 +30,7 @@ import cool.food.android.base.CCApplication;
 import cool.food.android.bean.FoodBean;
 import cool.food.android.bean.RestaurantBean;
 import cool.food.android.constants.AppConstant;
+import cool.food.android.dialog.CommentDialog;
 import cool.food.android.utils.FoodDaoUtils;
 import cool.food.android.utils.RestaurantDaoUtils;
 import cool.food.android.utils.ToastHelper;
@@ -44,10 +45,12 @@ public class RestaurantActivity extends BaseActivity {
     @BindView(R.id.civ_call_phone) CircleImageView mCallPhone;
     @BindView(R.id.rlv_food) RecyclerView mRecyclerView;
     @BindView(R.id.btn_add_shopping_cart) Button mAddShoppingCart;
+    @BindView(R.id.btn_comment) Button mComment;
 
     private RestaurantBean mRestaurantBean;
     private OrderFoodAdapter mOrderFoodAdapter;
     private List<FoodBean> mFoodBeanList = new ArrayList<>();
+    private CommentDialog mCommentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,13 +139,28 @@ public class RestaurantActivity extends BaseActivity {
 
     @OnClick(R.id.btn_add_shopping_cart)
     public void addShopingCartClicked() {
-        List<FoodBean> mFoodBeanList = mOrderFoodAdapter.getData();
-        if (mFoodBeanList == null || mFoodBeanList.isEmpty()) {return;}
-        for (FoodBean foodBean : mFoodBeanList) {
+        List<FoodBean> foodBeanList = mOrderFoodAdapter.getData();
+        if (foodBeanList == null || foodBeanList.isEmpty()) {return;}
+        for (FoodBean foodBean : foodBeanList) {
             if (foodBean.getBuyCount() > 0) {
+                foodBean.setRestaurantName(mRestaurantBean.getName());
                 FoodDaoUtils.getInstance().insertOneData(foodBean);
             }
         }
         ToastHelper.showShortMessage("添加购物车成功");
+        finish();
+    }
+
+    @OnClick(R.id.btn_comment)
+    public void commentClicked() {
+        showCommentDialog();
+    }
+
+    public void showCommentDialog() {
+        if (mCommentDialog == null) {
+            mCommentDialog = new CommentDialog();
+        }
+        mCommentDialog.setData(mRestaurantBean);
+        mCommentDialog.tryShow(getSupportFragmentManager());
     }
 }

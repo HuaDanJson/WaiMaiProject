@@ -11,21 +11,23 @@ import cn.bmob.v3.BmobObject;
 public class FoodBean extends BmobObject {
 
     @Id(autoincrement = true)
-    private long creatTime;
+    private Long id;
 
     @Property(nameInDb = "FoodBean")
     private String restaurantId;
+    private String restaurantName;
     private String foodName;
     private String foodPrice;
     private String foodAvatar;
 
     private int buyCount;
 
-    @Generated(hash = 1643581782)
-    public FoodBean(long creatTime, String restaurantId, String foodName,
+    @Generated(hash = 175853776)
+    public FoodBean(Long id, String restaurantId, String restaurantName, String foodName,
             String foodPrice, String foodAvatar, int buyCount) {
-        this.creatTime = creatTime;
+        this.id = id;
         this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
         this.foodAvatar = foodAvatar;
@@ -68,30 +70,40 @@ public class FoodBean extends BmobObject {
         this.foodAvatar = foodAvatar;
     }
 
-    public long getCreatTime() {
-        return this.creatTime;
-    }
-
-    public void setCreatTime(long creatTime) {
-        this.creatTime = creatTime;
-    }
-
-    @Override
-    public String toString() {
-        return "FoodBean{" +
-                "creatTime=" + creatTime +
-                ", restaurantId='" + restaurantId + '\'' +
-                ", foodName='" + foodName + '\'' +
-                ", foodPrice='" + foodPrice + '\'' +
-                ", foodAvatar='" + foodAvatar + '\'' +
-                '}';
-    }
-
     public int getBuyCount() {
         return this.buyCount;
     }
 
     public void setBuyCount(int buyCount) {
         this.buyCount = buyCount;
+    }
+
+    public String getRestaurantName() {
+        return this.restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "FoodBean{" +
+                "id=" + id +
+                ", restaurantId='" + restaurantId + '\'' +
+                ", restaurantName='" + restaurantName + '\'' +
+                ", foodName='" + foodName + '\'' +
+                ", foodPrice='" + foodPrice + '\'' +
+                ", foodAvatar='" + foodAvatar + '\'' +
+                ", buyCount=" + buyCount +
+                '}';
     }
 }

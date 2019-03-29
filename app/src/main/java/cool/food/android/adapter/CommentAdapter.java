@@ -12,7 +12,6 @@ import cool.food.android.R;
 import cool.food.android.base.BaseRVAdapter;
 import cool.food.android.base.IViewHolder;
 import cool.food.android.bean.CommentBean;
-import cool.food.android.utils.TimeUtils;
 
 
 public class CommentAdapter extends BaseRVAdapter<CommentBean, CommentAdapter.CommentAdapterHolder> {
@@ -45,7 +44,7 @@ public class CommentAdapter extends BaseRVAdapter<CommentBean, CommentAdapter.Co
         public void bindView(CommentBean commentBean, int position) {
             mCommentValue.setText(commentBean.getValue());
             tvCommentSender.setText(commentBean.getSenderUserName());
-            tvCommentTime.setText(TimeUtils.stampToDate(commentBean.getCreatedAt()));
+            tvCommentTime.setText(commentBean.getCreatedAt());
         }
     }
 }

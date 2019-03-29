@@ -24,7 +24,7 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property CreatTime = new Property(0, long.class, "creatTime", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "RestaurantBean");
         public final static Property Avatar = new Property(2, String.class, "avatar", false, "AVATAR");
         public final static Property Address = new Property(3, String.class, "address", false, "ADDRESS");
@@ -44,7 +44,7 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"RESTAURANT_BEAN\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: creatTime
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"RestaurantBean\" TEXT," + // 1: name
                 "\"AVATAR\" TEXT," + // 2: avatar
                 "\"ADDRESS\" TEXT," + // 3: address
@@ -60,7 +60,11 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, RestaurantBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getCreatTime());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String name = entity.getName();
         if (name != null) {
@@ -86,7 +90,11 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
     @Override
     protected final void bindValues(SQLiteStatement stmt, RestaurantBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getCreatTime());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String name = entity.getName();
         if (name != null) {
@@ -111,13 +119,13 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public RestaurantBean readEntity(Cursor cursor, int offset) {
         RestaurantBean entity = new RestaurantBean( //
-            cursor.getLong(offset + 0), // creatTime
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // avatar
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // address
@@ -128,7 +136,7 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
      
     @Override
     public void readEntity(Cursor cursor, RestaurantBean entity, int offset) {
-        entity.setCreatTime(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setAvatar(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setAddress(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
@@ -137,14 +145,14 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
     
     @Override
     protected final Long updateKeyAfterInsert(RestaurantBean entity, long rowId) {
-        entity.setCreatTime(rowId);
+        entity.setId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(RestaurantBean entity) {
         if(entity != null) {
-            return entity.getCreatTime();
+            return entity.getId();
         } else {
             return null;
         }
@@ -152,7 +160,7 @@ public class RestaurantBeanDao extends AbstractDao<RestaurantBean, Long> {
 
     @Override
     public boolean hasKey(RestaurantBean entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

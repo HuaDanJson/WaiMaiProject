@@ -24,12 +24,13 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property CreatTime = new Property(0, long.class, "creatTime", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property RestaurantId = new Property(1, String.class, "restaurantId", false, "FoodBean");
-        public final static Property FoodName = new Property(2, String.class, "foodName", false, "FOOD_NAME");
-        public final static Property FoodPrice = new Property(3, String.class, "foodPrice", false, "FOOD_PRICE");
-        public final static Property FoodAvatar = new Property(4, String.class, "foodAvatar", false, "FOOD_AVATAR");
-        public final static Property BuyCount = new Property(5, int.class, "buyCount", false, "BUY_COUNT");
+        public final static Property RestaurantName = new Property(2, String.class, "restaurantName", false, "RESTAURANT_NAME");
+        public final static Property FoodName = new Property(3, String.class, "foodName", false, "FOOD_NAME");
+        public final static Property FoodPrice = new Property(4, String.class, "foodPrice", false, "FOOD_PRICE");
+        public final static Property FoodAvatar = new Property(5, String.class, "foodAvatar", false, "FOOD_AVATAR");
+        public final static Property BuyCount = new Property(6, int.class, "buyCount", false, "BUY_COUNT");
     }
 
 
@@ -45,12 +46,13 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"FOOD_BEAN\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: creatTime
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"FoodBean\" TEXT," + // 1: restaurantId
-                "\"FOOD_NAME\" TEXT," + // 2: foodName
-                "\"FOOD_PRICE\" TEXT," + // 3: foodPrice
-                "\"FOOD_AVATAR\" TEXT," + // 4: foodAvatar
-                "\"BUY_COUNT\" INTEGER NOT NULL );"); // 5: buyCount
+                "\"RESTAURANT_NAME\" TEXT," + // 2: restaurantName
+                "\"FOOD_NAME\" TEXT," + // 3: foodName
+                "\"FOOD_PRICE\" TEXT," + // 4: foodPrice
+                "\"FOOD_AVATAR\" TEXT," + // 5: foodAvatar
+                "\"BUY_COUNT\" INTEGER NOT NULL );"); // 6: buyCount
     }
 
     /** Drops the underlying database table. */
@@ -62,95 +64,115 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, FoodBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getCreatTime());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String restaurantId = entity.getRestaurantId();
         if (restaurantId != null) {
             stmt.bindString(2, restaurantId);
         }
  
+        String restaurantName = entity.getRestaurantName();
+        if (restaurantName != null) {
+            stmt.bindString(3, restaurantName);
+        }
+ 
         String foodName = entity.getFoodName();
         if (foodName != null) {
-            stmt.bindString(3, foodName);
+            stmt.bindString(4, foodName);
         }
  
         String foodPrice = entity.getFoodPrice();
         if (foodPrice != null) {
-            stmt.bindString(4, foodPrice);
+            stmt.bindString(5, foodPrice);
         }
  
         String foodAvatar = entity.getFoodAvatar();
         if (foodAvatar != null) {
-            stmt.bindString(5, foodAvatar);
+            stmt.bindString(6, foodAvatar);
         }
-        stmt.bindLong(6, entity.getBuyCount());
+        stmt.bindLong(7, entity.getBuyCount());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, FoodBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getCreatTime());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String restaurantId = entity.getRestaurantId();
         if (restaurantId != null) {
             stmt.bindString(2, restaurantId);
         }
  
+        String restaurantName = entity.getRestaurantName();
+        if (restaurantName != null) {
+            stmt.bindString(3, restaurantName);
+        }
+ 
         String foodName = entity.getFoodName();
         if (foodName != null) {
-            stmt.bindString(3, foodName);
+            stmt.bindString(4, foodName);
         }
  
         String foodPrice = entity.getFoodPrice();
         if (foodPrice != null) {
-            stmt.bindString(4, foodPrice);
+            stmt.bindString(5, foodPrice);
         }
  
         String foodAvatar = entity.getFoodAvatar();
         if (foodAvatar != null) {
-            stmt.bindString(5, foodAvatar);
+            stmt.bindString(6, foodAvatar);
         }
-        stmt.bindLong(6, entity.getBuyCount());
+        stmt.bindLong(7, entity.getBuyCount());
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public FoodBean readEntity(Cursor cursor, int offset) {
         FoodBean entity = new FoodBean( //
-            cursor.getLong(offset + 0), // creatTime
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // restaurantId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // foodName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // foodPrice
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // foodAvatar
-            cursor.getInt(offset + 5) // buyCount
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // restaurantName
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // foodName
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // foodPrice
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // foodAvatar
+            cursor.getInt(offset + 6) // buyCount
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, FoodBean entity, int offset) {
-        entity.setCreatTime(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setRestaurantId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setFoodName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setFoodPrice(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setFoodAvatar(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setBuyCount(cursor.getInt(offset + 5));
+        entity.setRestaurantName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setFoodName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setFoodPrice(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setFoodAvatar(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setBuyCount(cursor.getInt(offset + 6));
      }
     
     @Override
     protected final Long updateKeyAfterInsert(FoodBean entity, long rowId) {
-        entity.setCreatTime(rowId);
+        entity.setId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(FoodBean entity) {
         if(entity != null) {
-            return entity.getCreatTime();
+            return entity.getId();
         } else {
             return null;
         }
@@ -158,7 +180,7 @@ public class FoodBeanDao extends AbstractDao<FoodBean, Long> {
 
     @Override
     public boolean hasKey(FoodBean entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

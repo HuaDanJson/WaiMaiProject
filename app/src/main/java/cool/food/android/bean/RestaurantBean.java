@@ -11,7 +11,7 @@ import cn.bmob.v3.BmobObject;
 public class RestaurantBean extends BmobObject {
 
     @Id(autoincrement = true)
-    private long creatTime;
+    private Long id;
 
     @Property(nameInDb = "RestaurantBean")
     private String name;
@@ -19,10 +19,10 @@ public class RestaurantBean extends BmobObject {
     private String address;
     private String phoneNumber;
 
-    @Generated(hash = 1320861530)
-    public RestaurantBean(long creatTime, String name, String avatar,
-                          String address, String phoneNumber) {
-        this.creatTime = creatTime;
+    @Generated(hash = 1344363489)
+    public RestaurantBean(Long id, String name, String avatar, String address,
+                          String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.avatar = avatar;
         this.address = address;
@@ -65,18 +65,18 @@ public class RestaurantBean extends BmobObject {
         this.phoneNumber = phoneNumber;
     }
 
-    public long getCreatTime() {
-        return this.creatTime;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setCreatTime(long creatTime) {
-        this.creatTime = creatTime;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "RestaurantBean{" +
-                "creatTime=" + creatTime +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", address='" + address + '\'' +
